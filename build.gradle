@@ -31,7 +31,7 @@ application {
     mainClassName = 'br.campos.dijkstra.Dijkstra'
 }
 
-run{
+run {
     standardInput = System.in
 }
 
