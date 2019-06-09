@@ -1,14 +1,16 @@
-package main.dijkstra;
+package br.campos.dijkstra;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import main.dijkstra.model.Edge;
-import main.dijkstra.model.Graph;
-import main.dijkstra.model.Vertex;
+
+import br.campos.dijkstra.model.Edge;
+import br.campos.dijkstra.model.Graph;
+import br.campos.dijkstra.model.Vertex;
 
 /**
  *
@@ -31,7 +33,7 @@ public class Dijkstra {
 			int tamanho;
 			try {
 				tamanho = Integer.parseInt(reader.next());
-			} catch (NumberFormatException e) {
+			} catch (Exception e) {
 				tamanho = -1;
 			}
 			if (tamanho < 1) {

@@ -1,4 +1,4 @@
-package main.dijkstra.model;
+package br.campos.dijkstra.model;
 
 import java.util.List;
 

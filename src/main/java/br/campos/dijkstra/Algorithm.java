@@ -1,4 +1,4 @@
-package main.dijkstra;
+package br.campos.dijkstra;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,17 +7,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import br.campos.dijkstra.model.Edge;
+import br.campos.dijkstra.model.Graph;
+import br.campos.dijkstra.model.Vertex;
+
 import java.util.LinkedList;
-import main.dijkstra.model.Edge;
-import main.dijkstra.model.Graph;
-import main.dijkstra.model.Vertex;
 
 /**
  * Algoritmo de Dijkstra
  */
 public class Algorithm {
 
-	private final List<Vertex> nodes;
 	private final List<Edge> edges;
 	private Set<Vertex> settledNodes;
 	private Set<Vertex> unSettledNodes;
@@ -26,7 +27,6 @@ public class Algorithm {
 
 	public Algorithm(Graph graph) {
 		// Cria uma cópia do array para o processamento
-		this.nodes = new ArrayList<>(graph.getVertexes());
 		this.edges = new ArrayList<>(graph.getEdges());
 	}
 
@@ -47,24 +47,23 @@ public class Algorithm {
 
 	private void findMinimalDistances(Vertex node) {
 		List<Vertex> adjacentNodes = getNeighbors(node);
-		adjacentNodes.stream().filter((target) -> (getShortestDistance(target) > getShortestDistance(node)
-				+ getDistance(node, target))).map((target) -> {
-			distance.put(target, getShortestDistance(node)
-					+ getDistance(node, target));
-			return target;
-		}).map((target) -> {
-			predecessors.put(target, node);
-			return target;
-		}).forEachOrdered((target) -> {
-			unSettledNodes.add(target);
-		});
+		adjacentNodes.stream().filter(
+				(target) -> (getShortestDistance(target) > getShortestDistance(node) + getDistance(node, target)))
+				.map((target) -> {
+					distance.put(target, getShortestDistance(node) + getDistance(node, target));
+					return target;
+				}).map((target) -> {
+					predecessors.put(target, node);
+					return target;
+				}).forEachOrdered((target) -> {
+					unSettledNodes.add(target);
+				});
 
 	}
 
 	private int getDistance(Vertex node, Vertex target) {
 		for (Edge edge : edges) {
-			if (edge.getSource().equals(node)
-					&& edge.getDestination().equals(target)) {
+			if (edge.getSource().equals(node) && edge.getDestination().equals(target)) {
 				return edge.getWeight();
 			}
 		}
@@ -73,10 +72,10 @@ public class Algorithm {
 
 	private List<Vertex> getNeighbors(Vertex node) {
 		List<Vertex> neighbors = new ArrayList<>();
-		edges.stream().filter((edge) -> (edge.getSource().equals(node)
-				&& !isSettled(edge.getDestination()))).forEachOrdered((edge) -> {
-			neighbors.add(edge.getDestination());
-		});
+		edges.stream().filter((edge) -> (edge.getSource().equals(node) && !isSettled(edge.getDestination())))
+				.forEachOrdered((edge) -> {
+					neighbors.add(edge.getDestination());
+				});
 		return neighbors;
 	}
 
